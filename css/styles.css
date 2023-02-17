@@ -4,7 +4,8 @@
     --primiry-background:  #2E2F42;
     --secondary-background:  #F4F4FD;
     --iris-color: #4D5AE5;
-    ---ocean-color: #404BBF;
+    --ocean-color: #404BBF;
+    --cubic: cubic-bezier(0.4, 0, 0.2, 1)
 }
 
 /* global styles */
@@ -73,6 +74,7 @@ button {
 .navigation {
     display: flex;
 }
+
 address {
     display: flex;
 }
@@ -129,18 +131,44 @@ header {
     gap: 40px;
 }
 
+.navigation-link.link,
+.contact-link.link {
+    display: block;
+}
 
 .navigation-link { 
+    position: relative;
     font-weight: 500;
     line-height: 1.33;
     letter-spacing: 0.02em;    
     color: #2E2F42;
+    transition-property: color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
 
 .navigation-link:is(:hover,:focus){
-    color: var(---ocean-color);
+    color: var(--ocean-color);
 }
 
+.navigation-link.current {
+    color: var(--ocean-color);
+}
+
+.current::after {
+
+    content: '';
+    position: absolute;
+    display: inline-block;
+    margin-top: 24px;
+    width: 100%;
+    bottom: -24px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--ocean-color);
+    border-radius: 2px;
+}
 
 
 .contact-link {
@@ -148,18 +176,18 @@ header {
     line-height: 1.33;   
     letter-spacing: 0.02em;
     color: #434455;
+    transition-property: color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
-.navigation-link.link,
-.contact-link.link {
-    display: block;
-}
+
 
 .contact-link:hover,
 .contact-link:focus {   
     font-style: normal;
     line-height: 1.33;    
     letter-spacing: 0.02em;
-    color:  var(---ocean-color);
+    color:  var(--ocean-color);
 }
 /* main sections styles */
 .hero {
@@ -201,10 +229,13 @@ header {
     margin-left: auto;
     margin-right: auto;
     margin-top: 49px;
+    transition-property: background-color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
 .hero-btn:hover,
 .hero-btn:focus {
-    background: var(---ocean-color);
+    background-color: var(--ocean-color);
 }
 .filter-list {
     display: flex;
@@ -224,10 +255,13 @@ header {
     background: #F4F4FD;
     border: 1px solid #E7E9FC;
     border-radius: 4px;
+    transition-property: color, border, background-color, border-radius, box-shadow;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
 .list-btn:hover,
 .list-btn:focus{
-    background-color: var(---ocean-color);
+    background-color: var(--ocean-color);
     color: #FFFFFF;
     border-color: transparent;
     box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
@@ -321,17 +355,20 @@ height: 40px;
 }
 
 .soc-link{
-display: flex;
-width: 100%;
-height: 100%;
-justify-content: center;
-align-items: center;
-border-radius: 50%;
-background-color: var(--iris-color);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--iris-color);
+    transition-property: background-color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
 
 .soc-link:is(:hover,:focus) {
-    background-color: var(---ocean-color);
+    background-color: var(--ocean-color);
 }
 .client-section {
 padding-top: 130px;
@@ -356,18 +393,22 @@ gap: 24px;
     justify-content: center;
     align-items: center;
     border: 1px solid #8E8F99;
-        border-radius: 4px;
+    border-radius: 4px;
 }
 
 .client-logo {
-fill: #8E8F99;
+    fill: #8E8F99;
+    transition-property: fill, border-color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
+
 }
 .client-link:is(:hover,:focus) {
-    border-color: var(---ocean-color);
+border-color: var(--ocean-color);
 }
 
 .client-link:is(:hover, :focus) .client-logo {
-    fill: var(---ocean-color);
+    fill: var(--ocean-color);
 }
 
 .portfolio {
@@ -393,6 +434,31 @@ gap:48px 24px;
 .portfolio-item:is(:focus,:hover){
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08) ;
 }
+
+.thumb {
+    position: relative;
+    overflow:hidden;
+}
+
+.thumb-text {
+    position: absolute;
+    padding: 40px 32px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    transform: translateY(100%);
+    color: var(--secondary-background);
+    background-color: #4D5AE5;
+    transition: transform 250ms var(--cubic);
+
+}
+
+.portfolio-item:is(:hover) .thumb-text {
+    transform: translateY(0)
+}
+
 
 .portfolio-subtitle{
     margin-bottom: 8px;
@@ -433,7 +499,6 @@ gap:48px 24px;
     color: var(--main-color-text);
 }
 .footer {
- 
     padding-top: 100px;
     padding-bottom: 100px;
     background-color: var(--primiry-background);
@@ -494,9 +559,65 @@ margin-left: 120px;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color:rgba(255, 255, 255, 0.1);;
+    background-color:rgba(255, 255, 255, 0.1);
+    transition-property: background-color;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
 }
 
 .media-link:is(:hover,:focus) {
 background-color: #31D0AA;
+}
+
+.backdrop {
+    position: fixed;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(46, 47, 66, 0.4);
+    transition-property: opacity visibility;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
+}
+
+
+.modal {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    padding: 24px 24px;
+    width: 408px;
+    min-height: 576px;
+    transition-property: transform scale opacity opacity;
+    transition-duration: 250ms;
+    transition-timing-function: var(--cubic);
+
+    background-color: #FCFCFC;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.modal-close {
+    display: flex;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    background: #E7E9FC;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(0);
+
+}
+
+.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
